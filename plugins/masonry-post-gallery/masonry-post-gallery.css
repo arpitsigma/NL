@@ -1,0 +1,174 @@
+/* All CSS and JS will be minified for final release */
+/********* NOTES **********/
+/*	Gallery Layout:
+		- div.CM_area								(A bounding box that contains all including scoped styling)
+			- div.masonry_post_gallery				(The whole gallery)
+				- div.masonry_brick					(Container for a single image)
+					- div or a .masonry_brick_a		(The click and hover event for each gallery image)
+						- img.masonry_brick_img		(Each image)
+					- div.cactus_masonry_databox	(The title/except box)
+						- div.cm_title				(The title area)
+						- div.cm_excerpt			(The except area)
+						- div.cm_custom				(The custom field area)
+			- div#MPG_Loader_Container				(The loading bar - generally full width - only appears for the first gallery)
+				- div#MPG_Loader_Color				(The loading box - i.e. the visible section of the loader bar)
+					- div#MPG_Spin_Box				(This box with the spin animation)
+					- div#MPG_Loader				(The 'loading' text)
+	
+		Every element above contains no more than one of each element next in the hierarchy.  The
+		exception is that there will be many div.masonry_brick elements - one per image.
+*/
+/**************			General Gallery and Contents			****************/
+div.masonry_brick, div.masonry_stamp, a.masonry_brick_a, div.masonry_brick_a, img.masonry_brick_img, div.masonry_post_gallery, div.cactus_masonry_databox {
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	box-sizing:border-box;
+}
+div.masonry_brick,
+div.masonry_stamp {
+	display: inline-block;
+	float: left;
+	border-style: solid;
+	overflow: visible;
+}
+div.CM_area {
+	clear: both;
+}
+div.CM_area div {
+	border-style: none;
+}
+
+/*IE8 max-width/max-height BUG */
+div.masonry_post_gallery, div.masonry_brick, div.masonry_stamp, a.masonry_brick_a, div.masonry_brick_a, #content div.masonry_post_gallery img.masonry_brick_img {/* IE8 - for bug that stops images with max-width or max-height = 100% from rendering */
+	max-height: none;
+	max-width: none;
+}
+
+a.masonry_brick_a, div.masonry_brick_a, img.masonry_brick_img, .masonry_brick_a div.cactus_masonry_cropped {
+	display: block;
+	padding: 0px;
+	border-style: solid;
+}
+a.masonry_brick_a, div.masonry_brick_a {	
+	position: relative;
+	overflow: hidden;
+}
+div.masonry_brick_a:hover img.masonry_brick_img, a.masonry_brick_a:hover img.masonry_brick_img, div.masonry_brick_a:hover div.cactus_masonry_cropped, a.masonry_brick_a:hover div.cactus_masonry_cropped{
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+	opacity: 0.5;
+}
+div.masonry_post_gallery {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	text-align: center;
+	height: auto;
+}
+img.masonry_brick_img {
+	margin: 0px;
+	height: 100%;
+	width: 100%;
+}
+div.cactus_masonry_cropped {
+	background-color: transparent;
+	background-image: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: block;
+	top: 0px;
+	pointer-events:none;
+	box-sizing: border-box;
+	border-style: solid;
+	background-origin: content-box;
+	background-position: center center;
+	background-size: cover;
+}
+/**************			Loading Box			****************/
+div#MPG_Loader_Container, div#MPG_Loader_Color, div#MPG_Spin_Box, div#MPG_Loader, div#MPG_Spin_Box, div#MPG_Loader{
+	pointer-events: none;
+	border-style: none;
+}
+div#MPG_Loader_Container{
+	background:none !important;
+	position: fixed;
+	top: 75px;
+	left: 0px;
+	width: 100%;
+	text-align: center;
+	display: none;
+	margin-top: 20px;
+	-webkit-transition: all 1s;
+	-moz-transition: all 1s;
+	-o-transition: all 1s;
+	transition: all 1s;
+	font-family: Helvetica,Arial,sans-serif;
+	z-index: 1250;
+}
+div#MPG_Loader_Color{
+	background-color: #353535;
+	color: #FFF;
+	border-radius: 4px;
+	display: inline-block;
+	font-size: 1.4em;
+	font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+}
+div#MPG_Spin_Box, div#MPG_Loader{
+	height: 50px;
+	text-align: center;
+	margin: 0px;
+	vertical-align: middle;
+}
+div#MPG_Spin_Box{
+	display: inline-block;
+	position: relative;
+}
+div#MPG_Loader{
+	line-height: 50px;
+	padding: 0px 10px 0px 10px;			
+	display: inline-block;
+}
+
+/**************			Databox			****************/
+/*Transparent background for non-IE8 browsers*/
+div.cactus_masonry_databox:not(#target_IE8_only) {/*IE8 does not support the :not selector so this applies to all newer browsers*/
+	background-color: rgba(0, 0, 0, 0.6);
+}
+div.cactus_masonry_databox {/*For all browsers including IE8*/
+	position: absolute;
+	background-color: black;
+	width: 100%;
+	display: block;
+	padding: 10px;
+	z-index: 1000;
+	color: #FFF;
+	text-align: left;
+	bottom: 0px;
+	pointer-events:none;
+}
+div.cactus_masonry_databox div.cm_title {
+	font-size: 1.35em;
+}
+div.cactus_masonry_databox div.cm_exerpt {
+	font-size: 0.90em;
+}
+div.cactus_masonry_databox div.cm_custom {
+	font-size: 0.90em;
+}
+div.cactus_masonry_databox div.cm_categories {
+	font-size: 0.90em;
+	margin: 0 -5px 0 -5px;
+}
+div.cactus_masonry_databox div.cm_categories span {
+	display: inline-block;
+	padding: 3px 5px;
+	white-space: nowrap;
+}
+h3.cmpg_javascript_error {
+	text-align: center;
+}
